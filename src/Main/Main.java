@@ -17,7 +17,17 @@ public class Main {
 	 */
 	public int maxNum(int[] arrays) {
 		//TODO
-		return -1;
+//		int biggestNUmber = arrays[0];
+//		for(int i = 0;i< arrays.length;i++){
+//			if(arrays[i]> biggestNUmber){
+//				biggestNUmber = arrays[i];
+//			}
+//		}
+//
+//		return biggestNUmber;
+		Arrays.sort(arrays);
+		int bigNumber =  arrays[arrays.length-1];
+		return bigNumber;
 	}
 	
 	/**
@@ -29,8 +39,15 @@ public class Main {
 	 */
 	public int sumOfOdds(int[] array) {
 		// TODO
-        return -1;	
-	}
+		int sum = 0;
+		for(int a=0;a< array.length;a++) {
+			if (array[a] % 2 != 0) {
+        sum+=array[a];
+			}
+		}
+        return sum;
+		}
+
 	
 	/**
 	 * Write a method that takes an array of integers and returns a boolean. You
@@ -44,7 +61,17 @@ public class Main {
 
 	public boolean threeAmigos(int[] array) {
 		// TODO
+		 for (int i = 0; i < array.length - 1; i++) {
+		   if (array[i] % 2 != 0 && array[i + 1] % 2 != 0 && array[i + 2] % 2 != 0) {
+		      return true;
+		   } else if (array[i] % 2 == 0 && array[i + 1] % 2 == 0 && array[i + 2] % 2 == 0) {
+		      return true;
+		   }
+		}
+
 		return false;
+
+
 	}
 	
 	
@@ -58,6 +85,13 @@ public class Main {
 	 */
 	public boolean make100With2(int[] nums) {
 		// TODO
+		for(int i =0;i<nums.length-1;i++){
+			for(int k = i+1;k<nums.length;k++){
+				if(nums[i] + nums[k]==100){
+					return true;
+				}
+			}
+		}
 		return false;
 	}
 
@@ -72,18 +106,36 @@ public class Main {
 	  * {"to", "be", "or", "not", "to", "be", "hamlet"} -> return {"be", "to", "not", "or", "be", "to", "hamlet"}
 	  *  
 	  * Method that is using String[]
-	  * @param Array
+	  * @param //Array
 	  * @return switched pairs array
 	  */
 	public String[] switchPairs(String[] list){
 		//TODO
-		return null;
+		String str[] = new String[list.length];
+		if (list.length%2 == 0 ){
+			for (int i = 0, s = 1 ; s<list.length; i+=2, s+=2 ){
+				str[i] = list[s];
+				str[s] = list[i];
+			}
+		}else if (list.length%2 != 0 && list.length > 1) {
+			for (int i = 0, s = 1 ; s<list.length-1; i+=2, s+=2 ){
+				str[i] = list[s];
+				str[s] = list[i];
+				str[str.length-1] = list[list.length-1];
+			}
+		}else if (list.length == 1){
+			str[0] = list[0];
+		}
+		return str;
 	}
+
+
+
 	
 	/**
 	 * 
-	 * @param array of book pages
-	 * @return page that is out of order; if all pages in the order return -1;
+	 * @param //arrays of book pages
+	 * @return page that is out of order; if all pages in the order return-1;
 	 * 
 	 * For example you given an array 
 	 *  int[]pages={20,100,55,78,44,90}; -> method will return 55
@@ -92,6 +144,11 @@ public class Main {
 	 */
 	public int outOfOrder(int[] arr){
 		//TODO
+		for(int a = 0;a+1< arr.length;a++){
+			if(arr[a]>arr[a+1]){
+				return arr[a+1];
+			}
+		}
 		return -1;
 	}
 
@@ -112,6 +169,18 @@ public class Main {
 
 	public boolean contains12(int[] nums) {
 		// TODO
+
+		for(int a = 0;a< nums.length;a++){
+			if(nums[a] == 1 ){
+				for(int b =a+1;b<nums.length;b++){
+					if (nums[b] ==2){
+						return true;
+					}
+				}
+
+			}
+
+		}
 		return false;
 	}
 	
@@ -124,13 +193,28 @@ public class Main {
 	 * {2,66,3,90,1,-10} -> return int 266390110
 	 * {0,34,5,3,8} -> return int 34538
 	 * 
-	 * @param array of numbers
+	 * @param //array of numbers
 	 * @return combined numbers of array
 	 */
 	public long combineNumbers(int[] numbers) {
 		//TODO
-		return -1;
+		Arrays.toString(numbers);
+		int sum = 0;int negative=-1;//2   66  ==266  //2*100=200+66=266    2 5 =25 =2*10+5
+
+		for (int a = 0; a < numbers.length; a++) {
+			if (numbers[a] > 9) {
+				sum = sum * 100 + numbers[a];
+			} else if (numbers[a] < 9 &numbers[a]>0) {
+				sum = sum * 10 + numbers[a];
+			} else if (numbers[a]<0){
+				sum=sum*10+  (numbers[a]*negative);
+
+			}
+		}
+		return sum;
 	}
+
+
 	
 	/**
 	 * Write a method that will accept one array as parameter and will remove duplicates
@@ -140,12 +224,31 @@ public class Main {
 	 * {3,6,8,3,2,7,9,9} -> return {3,6,8,2,7,9}
 	 * {-1,5,8,-1,-55,55,0} -> return {-1,5,8,-55,55,0}
 	 * 
-	 * @param array of numbers
+	 * @param //array of numbers
 	 * @return array of unique numbers
 	 */
 	public int[] removeDuplicates(int[] nums) {
 		//TODO
-		return null;
+		int end = nums.length;
+		for (int i = 0; i < end; i++) {
+			for (int j = i + 1; j < end; j++) {
+				if (nums[i] == nums[j]) {
+					int shiftLeft = j;
+					for (int k = j + 1; k < end; k++, shiftLeft++) {
+						nums[shiftLeft] = nums[k];
+					}
+					end--;
+					j--;
+				}
+			}
+		}
+
+		int[] whitelist = new int[end];
+		for (int i = 0; i < end; i++) {
+			whitelist[i] = nums[i];
+		}
+		return whitelist;
 	}
+
 
 }
